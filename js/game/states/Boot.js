@@ -7,7 +7,7 @@ PizzaConnection.Boot = {
     create: function() {
         this.game.stage.backgroundColor = '#fff';
         this.input.maxPointers = 1;
-        this.scale.maxHeight = 550;
+        this.scale.maxHeight = 590;
         this.scale.maxWidth = 1366;
         // if (this.game.device.desktop) {
         //     this.scale.maxHeight = 653;

@@ -23,6 +23,7 @@ PizzaConnection.Preload = {
         this.load.spritesheet('s_salami', 'assets/images/seasoning/s_salami.png', 315, 510, 13);
         this.load.spritesheet('s_sauce', 'assets/images/seasoning/s_sauce.png', 315, 510, 13);
         this.load.image('pizza', 'assets/images/pizza.png');
+        this.load.image('table', 'assets/images/table.png');
 
         this.load.onLoadComplete.add(this.onLoadComplete, this);
     },
