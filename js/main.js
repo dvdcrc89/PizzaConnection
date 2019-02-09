@@ -1,6 +1,6 @@
 let height = window.innerHeight;
 let width = window.innerWidth
-
+console.log(height,width)
 var game = new Phaser.Game(width,height , Phaser.AUTO, '');
 
 game.state.add('Boot', PizzaConnection.Boot);

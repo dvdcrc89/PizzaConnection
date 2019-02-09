@@ -7,8 +7,9 @@ PizzaConnection.Boot = {
     create: function() {
         this.game.stage.backgroundColor = '#fff';
         this.input.maxPointers = 1;
-        this.scale.maxHeight = 590;
-        this.scale.maxWidth = 1366;
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+        // this.scale.maxWidth = 1366;
         // if (this.game.device.desktop) {
         //     this.scale.maxHeight = 653;
         //     this.scale.maxWidth = 1366;

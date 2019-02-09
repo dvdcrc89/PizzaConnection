@@ -2,13 +2,13 @@ PizzaConnection.Game = function() {}
 PizzaConnection.Game = {
 
     create: function() {
-        this.table = game.add.sprite(0, game.height-260, 'table');
+        this.table = game.add.sprite(0, game.height-580, 'table');
         this.table.scale.setTo(0.6);
         this.pizza = game.add.sprite(200, 430, 'pizza');
         this.pizza.scale.setTo(0.60);
 
-        this.pizzaEnemy = game.add.sprite(game.width-200, 330, 'pizza');
-        this.pizzaEnemy.scale.setTo(0.8);
+        // this.pizzaEnemy = game.add.sprite(game.width-200, 330, 'pizza');
+        // this.pizzaEnemy.scale.setTo(0.8);
         
     },
 
@@ -16,7 +16,6 @@ PizzaConnection.Game = {
      
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
         this.season(this.pizza,"s_sauce");
-        this.season(this.pizzaEnemy,"s_sauce");
 
         }
         if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
