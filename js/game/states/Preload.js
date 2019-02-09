@@ -14,14 +14,14 @@ PizzaConnection.Preload = {
 
         //load season sprites
 
-        this.load.spritesheet('s_artichokes', 'assets/images/seasons/s_artichokes.png', 375, 505, 13);
-        this.load.spritesheet('s_basil', 'assets/images/seasons/s_basil.png', 375, 505, 13);
-        this.load.spritesheet('s_ham', 'assets/images/seasons/s_ham.png', 375, 505, 13);
-        this.load.spritesheet('s_mozzarella', 'assets/images/seasons/s_mozzarella.png', 375, 505, 13);
-        this.load.spritesheet('s_mushroom', 'assets/images/seasons/s_mushroom.png', 375, 505, 13);
-        this.load.spritesheet('s_oregano', 'assets/images/seasons/s_oregano.png', 375, 505, 13);
-        this.load.spritesheet('s_salami', 'assets/images/seasons/s_artichokes.png', 375, 505, 13);
-        this.load.spritesheet('s_sauce', 'assets/images/seasons/s_sauce.png', 375, 505, 13);
+        this.load.spritesheet('s_artichokes', 'assets/images/seasoning/s_artichokes.png', 315, 510, 13);
+        this.load.spritesheet('s_basil', 'assets/images/seasoning/s_basil.png', 293, 510, 13);
+        this.load.spritesheet('s_ham', 'assets/images/seasoning/s_ham.png', 315, 510, 13);
+        this.load.spritesheet('s_mozzarella', 'assets/images/seasoning/s_mozzarella.png', 313, 510, 13);
+        this.load.spritesheet('s_mushroom', 'assets/images/seasoning/s_mushroom.png', 315, 510, 13);
+        this.load.spritesheet('s_oregano', 'assets/images/seasoning/s_oregano.png', 315, 510, 13);
+        this.load.spritesheet('s_salami', 'assets/images/seasoning/s_salami.png', 315, 510, 13);
+        this.load.spritesheet('s_sauce', 'assets/images/seasoning/s_sauce.png', 315, 510, 13);
         this.load.image('pizza', 'assets/images/pizza.png');
 
         this.load.onLoadComplete.add(this.onLoadComplete, this);
