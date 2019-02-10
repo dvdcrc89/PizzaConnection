@@ -22,9 +22,14 @@ PizzaConnection.Preload = {
         this.load.spritesheet('s_oregano', 'assets/images/seasoning/s_oregano.png', 315, 510, 13);
         this.load.spritesheet('s_salami', 'assets/images/seasoning/s_salami.png', 315, 510, 13);
         this.load.spritesheet('s_sauce', 'assets/images/seasoning/s_sauce.png', 315, 510, 13);
+        this.load.spritesheet('person_1', 'assets/images/people/person_1.png', 300, 416, 2);
+        this.load.spritesheet('person_2', 'assets/images/people/person_2.png', 300, 416, 2);
+        this.load.spritesheet('person_3', 'assets/images/people/person_3.png', 300, 416, 2);
+
+
         this.load.image('pizza', 'assets/images/pizza.png');
         this.load.image('table', 'assets/images/table.png');
-
+        this.load.image('background', 'assets/images/background.png');
         this.load.onLoadComplete.add(this.onLoadComplete, this);
     },
     create: function() {

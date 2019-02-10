@@ -2,9 +2,11 @@ PizzaConnection.Game = function() {}
 PizzaConnection.Game = {
 
     create: function() {
-    
-        this.table = game.add.sprite(0, 270, 'table');
-        this.table.scale.setTo(0.4);
+        this.background = game.add.tileSprite(0, 0, game.width, 500 - 1, 'background');
+        this.people = new People(game,300);
+        this.people.addXPeople(7,2);
+        this.table = game.add.sprite(0, 470, 'table');
+        this.table.scale.setTo(0.6);
         // this.pizza = game.add.sprite(100, 400, 'pizza');
         // this.pizza.scale.setTo(0.60);
         this.ingredients = new Ingredients(game);
@@ -18,6 +20,7 @@ PizzaConnection.Game = {
                                 );
         this.c = new Controller(game);
         this.c.addCommand(this.mozzarella);    
+       
     },
 
     update: function(){
