@@ -6,13 +6,11 @@ PizzaDresser = function(game,pizza) {
 
 
 this.season_action = function(ingredient){
-        let dress = game.add.sprite(this.pizza.x+25,this.pizza.y-(220), ingredient);
-        dress.scale.setTo(0.7);
-        dress.animations.add('season');
-        dress.animations.play('season', 23, false);
-        this.pizza.addIngredient(dress);
-
-    }
+    if(!this.pizza.hasIngredient(ingredient))
+        this.pizza.addIngredient(
+            new Ingredient(this.game,this.pizza,ingredient,25,-220,0.7),ingredient
+            );
+}
 
  this.getPizza = function(){
      return this.pizza;
@@ -22,6 +20,8 @@ this.season_action = function(ingredient){
      this.pizza.destroy();
      this.pizza = pizza;
  }
+ 
 }
 PizzaDresser.prototype = Object.create(Phaser.Sprite.prototype);
 PizzaDresser.prototype.constructor = PizzaDresser;
+

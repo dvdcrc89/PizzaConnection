@@ -5,12 +5,16 @@ Pizza = function(game,x,y,scale) {
     game.add.existing(this);
     this.scale.setTo(scale);
     this.ingredients = game.add.group();
-
-    this.addIngredient = function(ingredient){
+    this.ingredientsArray = []
+    
+    this.addIngredient = function(ingredient,ingredientKey){
         this.ingredients.add(ingredient);
+        this.ingredientsArray.push(ingredientKey);
     }
 
-
+    this.hasIngredient = function(ingredientKey){
+        return this.ingredientsArray.includes(ingredientKey) ? true : false;
+    }   
 
 
 }
