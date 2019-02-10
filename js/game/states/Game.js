@@ -9,12 +9,19 @@ PizzaConnection.Game = {
         // this.pizza.scale.setTo(0.60);
         this.ingredients = new Ingredients(game);
         this.pizzaDresser = new PizzaDresser(game, new Pizza(game,100,400,0.6));
-
-        
+        this.playerAction = new PlayerAction(game)
+        console.log(this.playerAction)
+        this.mozzarella = new Command( game,
+                                this.playerAction,
+                                Phaser.Keyboard.SPACEBAR,
+                                this.playerAction.get().ADD_MOZZARELLA
+                                );
+        this.c = new Controller(game);
+        this.c.addCommand(this.mozzarella);    
     },
 
     update: function(){
-     
+        this.c.listen();
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
         this.pizzaDresser.season_action(this.ingredients.getAll().mozzarella);
 
