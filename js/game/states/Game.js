@@ -23,29 +23,17 @@ PizzaConnection.Game = {
     update: function(){
         this.c.listen();
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
-        this.pizzaDresser.season_action(this.ingredients.getAll().mozzarella);
+            this.pizzaDresser.season_action(this.ingredients.getAll().mozzarella);
 
         }
         if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
             this.pizzaDresser.season_action(this.ingredients.getAll().sauce);
         }
         if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
-            this.pizzaDresser.season_action(this.ingredients.getAll().ham);
+            this.pizzaDresser.season_action(this.ingredients.getAll().oregano);
         }
         if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
             this.pizzaDresser.setPizza(new Pizza(game,100,400,0.6));
         }
     },
-    // season: function(pizza,ingredient){
-        
-    //         console.log(this.pizza.x);
-    //         this.oregano =  game.add.sprite(pizza.x+25,pizza.y-(220), ingredient);
-    //         this.oregano.scale.setTo(0.7);
-    //         this.oregano.animations.add('season');
-    //         this.oregano.animations.play('season', 18, false);
-       
-    //         console.log(this.oregano.x,this.oregano.y);
-
-        
-    // }
 }
