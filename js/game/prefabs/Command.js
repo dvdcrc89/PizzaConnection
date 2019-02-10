@@ -1,19 +1,19 @@
-Command = function(game,playerAction,key,action) {
-    
+Command = function(game, playerAction, key, action) {
+
     this.game = game;
     this.key = this.game.input.keyboard.addKey(key);
     this.action = action;
     this.playerAction = playerAction;
-    
-    this.execute = function(){
+
+    this.execute = function() {
         this.playerAction.dispatch(this.action);
     }
 
-    this.getKey = function(){
+    this.getKey = function() {
         return this.key;
     }
 
-    this.setKey = function(key){
+    this.setKey = function(key) {
         this.key = key;
     }
 }

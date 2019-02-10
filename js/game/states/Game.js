@@ -11,7 +11,7 @@ PizzaConnection.Game = {
         this.pizzaDresser = new PizzaDresser(game, new Pizza(game,100,400,0.6));
         this.playerAction = new PlayerAction(game)
         console.log(this.playerAction)
-        this.mozzarella = new Command( game,
+        this.mozzarella = new Command(game,
                                 this.playerAction,
                                 Phaser.Keyboard.SPACEBAR,
                                 this.playerAction.get().ADD_MOZZARELLA
