@@ -20,8 +20,7 @@ PizzaConnection.Game = {
                                 );
         this.c = new Controller(game);
         this.c.addCommand(this.mozzarella); 
-        this.buttons = new Buttons(game);   
-            this.buttons.generateButton(200,200,50,50,"b_mozzarella",0xfff,this.mozzarella)
+
     },
 
     update: function(){
