@@ -30,6 +30,23 @@ PizzaConnection.Preload = {
         this.load.image('pizza', 'assets/images/pizza.png');
         this.load.image('table', 'assets/images/table.png');
         this.load.image('background', 'assets/images/background.png');
+
+        //buttons
+        this.load.image('b_artichokes', 'assets/images/buttons/b_artichokes.png');
+        this.load.image('b_basil', 'assets/images/buttons/b_basil.png');
+        this.load.image('b_ham', 'assets/images/buttons/b_ham.png');
+        this.load.image('b_salami', 'assets/images/buttons/b_salami.png');
+        this.load.image('b_oregano', 'assets/images/buttons/b_oregano.png');
+        this.load.image('b_mushroom', 'assets/images/buttons/b_mushroom.png');
+        this.load.image('b_mozzarella', 'assets/images/buttons/b_mozzarella.png');
+        this.load.image('b_sauce', 'assets/images/buttons/b_sauce.png');
+
+
+
+
+
+
+
         this.load.onLoadComplete.add(this.onLoadComplete, this);
     },
     create: function() {

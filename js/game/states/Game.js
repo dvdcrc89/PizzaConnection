@@ -19,8 +19,9 @@ PizzaConnection.Game = {
                                 this.playerAction.get().ADD_MOZZARELLA
                                 );
         this.c = new Controller(game);
-        this.c.addCommand(this.mozzarella);    
-       
+        this.c.addCommand(this.mozzarella); 
+        this.buttons = new Buttons(game);   
+            this.buttons.generateButton(200,200,50,50,"b_mozzarella",0xfff,this.mozzarella)
     },
 
     update: function(){
@@ -33,7 +34,7 @@ PizzaConnection.Game = {
             this.pizzaDresser.season_action(this.ingredients.getAll().sauce);
         }
         if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
-            this.pizzaDresser.season_action(this.ingredients.getAll().oregano);
+            this.pizzaDresser.season_action(this.ingredients.getAll().ham);
         }
         if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
             this.pizzaDresser.setPizza(new Pizza(game,100,400,0.6));
