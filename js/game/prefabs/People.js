@@ -8,7 +8,7 @@ People = function(game,startY) {
     this.addXPeople = function(num,row){
         for(let i=row;i>=0;i--){ 
             for(let i2=0;i2<(num-i);i2++){
-                let x = 50+(this.game.width-100)/num *i2 + i*77;
+                let x = (this.game.width)/num *i2 + i*77;
                 let size = (Math.random()*10-5)/100;
                 this.addPerson(x,startY+i*30,0.5+size-i/9);
             }
