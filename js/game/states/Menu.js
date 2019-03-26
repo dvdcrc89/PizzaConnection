@@ -1,12 +1,17 @@
-const PizzaConnection = function() {};
 PizzaConnection.Menu = {
     preload: function() {
+        this.ready = true;
 
     },
     create: function() {
-        this.game.stage.backgroundColor = '#fff';
-        this.input.maxPointers = 1;
-        console.log("i am in the menu")
-        this.state.start('Game');
+        // this.preloadBar.cropEnabled = false;
+    },
+    update: function() {
+        if (this.ready === true) {
+            this.state.start('Game');
+        }
+    },
+    onLoadComplete: function() {
+        this.ready = true;
     }
 };
