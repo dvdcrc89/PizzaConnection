@@ -1,17 +1,16 @@
 PizzaConnection.Menu = {
     preload: function() {
-        this.ready = true;
-
+        this.background =  game.add.sprite( 0, 0 , 'm_background');
+        this.background.scale.setTo(0.6);
     },
     create: function() {
         // this.preloadBar.cropEnabled = false;
     },
     update: function() {
-        if (this.ready === true) {
-            this.state.start('Game');
-        }
+      
+            // this.state.start('Game');
     },
     onLoadComplete: function() {
-        this.ready = true;
+
     }
 };
