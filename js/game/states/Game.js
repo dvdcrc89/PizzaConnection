@@ -21,6 +21,11 @@ PizzaConnection.Game = {
         this.menuButton = game.add.button(760,490, 'b_menu',this.actionOnClick, this,2, 1, 0);
         this.menuButton.scale.setTo(0.2);
         this.playerAction = new PlayerAction(game);
+        this.pizzaList = game.add.sprite(50,70, 'pizzaList')
+        this.pizzaList.scale.setTo(0.8);
+        this.pizzaList.alpha = 0;
+            // game.add.tween(this.start.button).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+        
         console.log(this.playerAction)
         this.c = new Controller(game);
 
@@ -85,7 +90,11 @@ PizzaConnection.Game = {
         }
     },
     actionOnClick: function() {
-     
+        if(this.pizzaList.alpha == 1)
+        this.pizzaList.alpha = 0;
+        else{
+        this.pizzaList.alpha = 1;
+        }
     }
 
 
