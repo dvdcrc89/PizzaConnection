@@ -43,6 +43,12 @@ PizzaConnection.Preload = {
         this.load.image('b_oven', 'assets/images/buttons/b_oven.png');
         this.load.image('b_delete', 'assets/images/buttons/b_delete.png');
 
+        //menu
+        this.load.image('m_background', 'assets/images/buttons/background.png');
+        this.load.image('m_start', 'assets/images/buttons/start.png');
+        this.load.image('m_option', 'assets/images/buttons/option.png');
+
+
         this.load.image('o_people', 'assets/images/o_people.png');
         this.load.image('o_table', 'assets/images/o_table.png');
 
