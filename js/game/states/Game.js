@@ -5,7 +5,7 @@ PizzaConnection.Game = {
         // this.background = game.add.tileSprite(0, 0, game.width, 500 - 1, 'background');
 
         game.stage.backgroundColor = "#4488AA";
-       
+        
         this.opponent =  game.add.sprite(600, 120, 'opponent');
         this.opponent.scale.setTo(0.35)
         this.opponent.animations.add("move");
@@ -18,6 +18,8 @@ PizzaConnection.Game = {
         this.people.addXPeople(7,2);
         this.table = game.add.sprite(0, 470, 'table');
         this.table.scale.setTo(0.6);
+        this.menuButton = game.add.button(760,490, 'b_menu',this.actionOnClick, this,2, 1, 0);
+        this.menuButton.scale.setTo(0.2);
         this.playerAction = new PlayerAction(game);
         console.log(this.playerAction)
         this.c = new Controller(game);
@@ -74,6 +76,7 @@ PizzaConnection.Game = {
              
 
     },
+    
 
     update: function(){
         this.c.listen();
@@ -81,4 +84,9 @@ PizzaConnection.Game = {
             this.pizzaDresser.setPizza(new Pizza(game,100,400,0.6));
         }
     },
+    actionOnClick: function() {
+     
+    }
+
+
 }
