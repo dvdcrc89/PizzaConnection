@@ -3,6 +3,8 @@ PizzaConnection.Game = {
 
     create: function() {
         // this.background = game.add.tileSprite(0, 0, game.width, 500 - 1, 'background');
+
+        game.stage.backgroundColor = "#4488AA";
        
         this.opponent =  game.add.sprite(600, 120, 'opponent');
         this.opponent.scale.setTo(0.35)
