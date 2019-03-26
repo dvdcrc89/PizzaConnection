@@ -18,12 +18,15 @@ PizzaConnection.Game = {
         this.people.addXPeople(7,2);
         this.table = game.add.sprite(0, 470, 'table');
         this.table.scale.setTo(0.6);
-        this.menuButton = game.add.button(760,490, 'b_menu',this.actionOnClick, this,2, 1, 0);
+        this.menuButton = game.add.button(700,490, 'b_menu',this.actionOnClick, this,2, 1, 0);
         this.menuButton.scale.setTo(0.2);
         this.playerAction = new PlayerAction(game);
         this.pizzaList = game.add.sprite(50,70, 'pizzaList')
         this.pizzaList.scale.setTo(0.8);
         this.pizzaList.alpha = 0;
+        this.orderList = game.add.sprite(820 ,400, 'orderList')
+        this.orderList.scale.setTo(0.8);
+   
             // game.add.tween(this.start.button).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
         
         console.log(this.playerAction)
