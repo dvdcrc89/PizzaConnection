@@ -31,6 +31,7 @@ PizzaConnection.Preload = {
         this.load.image('table', 'assets/images/table.png');
         this.load.image('background', 'assets/images/background.png');
         this.load.image('pizzaList','assets/images/pizzaList.png')
+        this.load.image('orderList','assets/images/orderList.png')
 
         //buttons
         this.load.image('b_artichokes', 'assets/images/buttons/b_artichokes.png');
