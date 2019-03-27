@@ -57,11 +57,11 @@ PizzaConnection.Preload = {
         this.load.image('m_pizzaBack', 'assets/images/buttons/pizzaBack.png');
 
 
-        this.load.image('o_people', 'assets/images/o_people.png');
+        this.load.image('o_people', 'assets/images/opponent/o_people.png');
         this.load.image('o_table', 'assets/images/o_table.png');
 
 
-        this.load.spritesheet('opponent', 'assets/images/opponent.png', 420, 399, 3);
+        this.load.spritesheet('opponent', 'assets/images/opponent/opponent.png', 420, 399, 3);
 
 
 
@@ -71,10 +71,14 @@ PizzaConnection.Preload = {
     },
     create: function() {
         // this.preloadBar.cropEnabled = false;
+        Client.socket.emit("join");
+
     },
     update: function() {
+      
         if (this.ready === true) {
-            this.state.start('Game');
+
+            // this.state.start('Game');
         }
     },
     onLoadComplete: function() {

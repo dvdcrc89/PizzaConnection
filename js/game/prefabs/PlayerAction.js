@@ -1,6 +1,7 @@
 PlayerAction = function(game) {
     this.game = game;
-    this.pizzaDresser = new PizzaDresser(game, new Pizza(game,100,400,0.6));;
+    this.pizzaDresser = new PizzaDresser(game, new Pizza(game,100,400,0.6,'pizza'));
+    this.pizzaDresser2 = new PizzaDresser(game, new Pizza(game,820,60,0.6, 'o_pizza'));
     this.ingredients = new Ingredients(game);
 
     const actions = {
@@ -22,40 +23,53 @@ PlayerAction = function(game) {
     }
 
     this.dispatch = function(action) {
-        switch (action) {
+        Client.sendAction(action);
+        
+
+    }
+    
+    Client.socket.on('server_action',function(action){
+        console.log(action);
+        switch (action.type) {
             case actions.ADD_MOZZARELLA:
-                this.pizzaDresser.season_action(this.ingredients.getAll().mozzarella);
+                this.dresserSelector(action.isMe).season_action(this.ingredients.getAll().mozzarella);
                 break;
             case actions.ADD_BASIL:
-                this.pizzaDresser.season_action(this.ingredients.getAll().basil);
+                this.dresserSelector(action.isMe).season_action(this.ingredients.getAll().basil);
                 break;
             case actions.ADD_ARTICHOKES:
-                this.pizzaDresser.season_action(this.ingredients.getAll().artichokes);
+                this.dresserSelector(action.isMe).season_action(this.ingredients.getAll().artichokes);
                 break;
             case actions.ADD_HAM:
-                this.pizzaDresser.season_action(this.ingredients.getAll().ham);
+                this.dresserSelector(action.isMe).season_action(this.ingredients.getAll().ham);
                 break;
             case actions.ADD_MUSHROOM:
-                this.pizzaDresser.season_action(this.ingredients.getAll().mushroom);
+                this.dresserSelector(action.isMe).season_action(this.ingredients.getAll().mushroom);
                 break;
             case actions.ADD_OREGANO:
-                this.pizzaDresser.season_action(this.ingredients.getAll().oregano);
+                this.dresserSelector(action.isMe).season_action(this.ingredients.getAll().oregano);
                 break;
             case actions.ADD_SALAMI:
-                this.pizzaDresser.season_action(this.ingredients.getAll().salami);
+                this.dresserSelector(action.isMe).season_action(this.ingredients.getAll().salami);
                 break;
             case actions.ADD_SAUCE:
-                this.pizzaDresser.season_action(this.ingredients.getAll().sauce);
+                this.dresserSelector(action.isMe).season_action(this.ingredients.getAll().sauce);
                 break;
             case actions.TRASH_PIZZA:
-                this.pizzaDresser.setPizza(new Pizza(game,100,400,0.6));
+                let dresserSelector = this.dresserSelector(action.isMe);
+                let key = action.isMe ? 'pizza' : 'o_pizza';
+                dresserSelector.setPizza(
+                    new Pizza(game,dresserSelector.getPizza().x,dresserSelector.getPizza().y,0.6,key));
                 break;
             case actions.PIZZA_COMPLETE:
                 break;
 
         }
-    }
+    }.bind(this));
 
+    this.dresserSelector = function(isMe){
+        return isMe ? this.pizzaDresser : this.pizzaDresser2;
+    }
 
 }
 PlayerAction.prototype = Object.create(Phaser.Sprite.prototype);
