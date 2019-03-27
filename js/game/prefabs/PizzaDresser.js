@@ -19,8 +19,8 @@ PizzaDresser = function(game, pizza) {
         this.pizza.destroy();
         this.pizza = pizza;
     }
-    this.getPizzaString = function(){
-        return this.pizza.toString();
+    this.getPizzaIngredients = function(){
+        return this.pizza.getIngredients();
     }
 }
 PizzaDresser.prototype = Object.create(Phaser.Sprite.prototype);

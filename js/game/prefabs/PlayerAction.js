@@ -23,7 +23,7 @@ PlayerAction = function(game) {
     }
 
     this.dispatch = function(action) {
-        Client.sendAction(action,this.pizzaDresser.getPizzaString());
+        Client.sendAction(action,this.pizzaDresser.getPizzaIngredients());
      }
     
     Client.socket.on('server_action',function(action){

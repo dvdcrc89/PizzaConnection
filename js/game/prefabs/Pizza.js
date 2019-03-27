@@ -14,8 +14,8 @@ Pizza = function(game, x, y, scale,key) {
     this.hasIngredient = function(ingredientKey) {
         return this.ingredientsArray.includes(ingredientKey) ? true : false;
     }
-    this.toString = function(){
-        return this.ingredientsArray.toString();
+    this.getIngredients = function(){
+        return this.ingredientsArray;
     }
 
 }
