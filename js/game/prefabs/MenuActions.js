@@ -13,8 +13,8 @@ MenuActions = function(game) {
     this.dispatch = function(action) {
         switch (action) {
             case actions.START_GAME:
-                game.state.start('Game');
-                break;
+            Client.socket.emit("join");
+            break;
 
         }
     }
