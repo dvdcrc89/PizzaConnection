@@ -97,9 +97,9 @@ PizzaConnection.Game = {
     },
     actionOnClick: function() {
         if(this.pizzaList.alpha == 1)
-        this.pizzaList.alpha = 0;
+            this.pizzaList.alpha = 0;
         else{
-        this.pizzaList.alpha = 1;
+            this.pizzaList.alpha = 1;
         }
     }
 
