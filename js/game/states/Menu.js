@@ -34,7 +34,6 @@ PizzaConnection.Menu = {
     },
     update: function() {
         this.pizzaBack.angle += 1;
-            // this.state.start('Game');
     },
     onLoadComplete: function() {
 

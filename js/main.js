@@ -9,6 +9,7 @@ game.state.add('Boot', PizzaConnection.Boot);
 game.state.add('Menu', PizzaConnection.Menu);
 game.state.add('Preloader', PizzaConnection.Preload);
 game.state.add('Game', PizzaConnection.Game);
+game.state.add('Loading', PizzaConnection.Loading);
 // game.state.add('MainMenu', JustRun.MainMenu);
 // game.state.add('GameOver', JustRun.GameOver);
 
