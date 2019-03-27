@@ -10,6 +10,8 @@ PizzaConnection.Game = {
         this.opponent.scale.setTo(0.35)
         this.opponent.animations.add("move");
         this.opponent.animations.play("move",2,true);
+        this.o_viewBack = game.add.sprite(810,10, 'o_viewBack')
+        this.o_viewBack.scale.setTo(0.6);
         this.o_table = game.add.sprite(0, 250, 'o_table');
         this.o_table.scale.setTo(0.6)
         this.opeople = game.add.sprite(120, 230, 'o_people');
@@ -22,11 +24,13 @@ PizzaConnection.Game = {
         this.menuButton.scale.setTo(0.2);
         this.playerAction = new PlayerAction(game);
         this.pizzaList = game.add.sprite(50,70, 'pizzaList')
-        this.pizzaList.scale.setTo(0.8);
+        this.pizzaList.scale.setTo(0.3);
         this.pizzaList.alpha = 0;
-        this.orderList = game.add.sprite(820 ,400, 'orderList')
-        this.orderList.scale.setTo(0.8);
-   
+        this.orderList = game.add.sprite(810 ,300, 'orderList')
+        this.orderList.scale.setTo(0.4);
+        this.o_pizza = game.add.sprite(820,60, 'o_pizza')
+        this.o_pizza.scale.setTo(0.6);
+        
             // game.add.tween(this.start.button).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
         
         console.log(this.playerAction)

@@ -28,10 +28,13 @@ PizzaConnection.Preload = {
 
 
         this.load.image('pizza', 'assets/images/pizza.png');
+        this.load.image('o_pizza', 'assets/images/opponent/o_pizza.png')
         this.load.image('table', 'assets/images/table.png');
         this.load.image('background', 'assets/images/background.png');
         this.load.image('pizzaList','assets/images/pizzaList.png')
         this.load.image('orderList','assets/images/orderList.png')
+        this.load.image('o_viewBack','assets/images/opponent/o_viewBack.png')
+
 
         //buttons
         this.load.image('b_artichokes', 'assets/images/buttons/b_artichokes.png');
@@ -71,7 +74,7 @@ PizzaConnection.Preload = {
     },
     update: function() {
         if (this.ready === true) {
-            this.state.start('Menu');
+            this.state.start('Game');
         }
     },
     onLoadComplete: function() {
