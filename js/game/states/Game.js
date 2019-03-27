@@ -2,6 +2,7 @@ PizzaConnection.Game = function() {}
 PizzaConnection.Game = {
 
     create: function() {
+
         // this.background = game.add.tileSprite(0, 0, game.width, 500 - 1, 'background');
 
         game.stage.backgroundColor = "#4488AA";
@@ -28,8 +29,7 @@ PizzaConnection.Game = {
         this.pizzaList.alpha = 0;
         this.orderList = game.add.sprite(810 ,300, 'orderList')
         this.orderList.scale.setTo(0.4);
-        this.o_pizza = game.add.sprite(820,60, 'o_pizza')
-        this.o_pizza.scale.setTo(0.6);
+     
         
             // game.add.tween(this.start.button).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
         
@@ -85,8 +85,7 @@ PizzaConnection.Game = {
             
              console.log(this.mozzButton3);
        
-             
-
+          
     },
     
 

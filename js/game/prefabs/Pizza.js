@@ -1,6 +1,6 @@
-Pizza = function(game, x, y, scale) {
+Pizza = function(game, x, y, scale,key) {
     this.game = game;
-    Phaser.Sprite.call(this, game, x, y, "pizza");
+    Phaser.Sprite.call(this, game, x, y, key);
     game.add.existing(this);
     this.scale.setTo(scale);
     this.ingredients = game.add.group();
