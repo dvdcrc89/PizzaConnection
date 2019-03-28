@@ -43,6 +43,9 @@ const pizzas = [{
     name: pizzasName.meat,
     ingredients: [ingredients.mozzarella, ingredients.mushroom, ingredients.ham, ingredients.artichokes, ingredients.salami]
 }]
+const PIZZA_COMPLETE = "[PIZZA] DELIVER PIZZA";
+const WRONG_PIZZA= "[PIZZA] WRONG PIZZA"
+const GAME_OVER= "[GAME] GAME OVER";
 
 
 io.sockets.on('connection', function(client) {
@@ -64,8 +67,7 @@ io.sockets.on('connection', function(client) {
     });
 
     client.on('action', function(data) {
-        console.log(data);
-        console.log(validatePizza(pizzasName.diavola, data.pizza));
+        
         client.emit('server_action', {
             type: data.action,
             isMe: true
@@ -76,6 +78,15 @@ io.sockets.on('connection', function(client) {
                 isMe: false
             });
         });
+        if(data.action===PIZZA_COMPLETE){
+            handlePizzaComplete(data.pizza,client);
+            let isPizzaCorrect = validatePizza(pizzasName.diavola,data.pizza);
+            if(isPizzaCorrect){
+                
+            } else {
+
+            }
+        }
     });
     client.on('disconnect', function() {
         // if(getGameByClient(client).length>0){
@@ -105,11 +116,11 @@ function setGame(client1, client2, roomId) {
 }
 
 function getGameByClient(client) {
-    return game.filter(match => match.client1 === client.id || match.client2 === client.id);
+    return game.filter(match => match.client1 === client.id || match.client2 === client.id)[0];
 }
 
 function getGameByRoom(roomId) {
-    return game.filter(match => match.roomId === roomId);
+    return game.filter(match => match.roomId === roomId)[0];
 }
 
 function removeGame(client) {
@@ -133,3 +144,71 @@ function validatePizza(pizzaType, pizza) {
     })
     return isCorrect;
 }
+
+function handlePizzaComplete(pizza,client){
+    let match = getGameByClient(client);
+    console.log(match);
+    let isP1 = game.client1 == client.id ? true : false;
+    let pizzaIndex = isP1 ? match.pizza1 : match.pizza2;
+    let isCorrect = validatePizza(match.orders[pizzaIndex],pizza,client);
+    if(!isCorrect){
+        client.emit('server_action', {
+            type: WRONG_PIZZA,
+            isMe: true
+        });
+        Object.keys(match.roomId).forEach(function(room) {
+            client.broadcast.to(room).emit('server_action', {
+                type: WRONG_PIZZA,
+                isMe: false
+            });
+        });
+        return false;
+    } else {
+        game[game.indexOf(match)] = updateGameObject(isP1,match,client);
+    }
+}
+
+function updateGameObject(isP1,match,client){
+    if(!isGameEnded(isP1,match,client)){
+        if(isP1) return {...match,pizza1:match.pizza1+1}
+        else return {...match,pizza2:match.pizza2+1}
+
+    }
+}
+
+
+
+function isGameEnded(isP1,match,client){
+    if(isP1){
+        console.log(match.pizza2,match.orders.length)
+        if(match.pizza1 >= match.orders.length-1){
+            client.emit('server_action', {
+                type: GAME_OVER,
+                isMe: true
+            });
+       
+                client.broadcast.to(match.roomId).emit('server_action', {
+                    type: GAME_OVER,
+                    isMe: false
+                }); 
+                console.log("P1 won");
+            return true;
+        }
+    } else { 
+        console.log(match.pizza2,match.orders.length)
+        if(match.pizza2 >= match.orders.length-1){
+            client.emit('server_action', {
+                type: GAME_OVER,
+                isMe: true
+            });
+                client.broadcast.to(match.roomId).emit('server_action', {
+                    type: GAME_OVER,
+                    isMe: false
+                });
+                console.log("P2 won");
+            return true;
+        }
+
+    }
+    return false;
+}    

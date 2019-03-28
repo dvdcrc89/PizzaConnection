@@ -15,6 +15,9 @@ PlayerAction = function(game) {
         ADD_SAUCE: "[SEASON] ADD SAUCE",
         TRASH_PIZZA: "[PIZZA] TRASH PIZZA AWAY",
         PIZZA_COMPLETE: "[PIZZA] DELIVER PIZZA",
+        WRONG_PIZZA: "[PIZZA] WRONG PIZZA",
+        GAME_OVER: "[GAME] GAME OVER",
+
     }
 
 
@@ -60,8 +63,18 @@ PlayerAction = function(game) {
                     new Pizza(game,dresserSelector.getPizza().x,dresserSelector.getPizza().y,0.6,key));
                 break;
             case actions.PIZZA_COMPLETE:
+                let ds = this.dresserSelector(action.isMe);
+                let k = action.isMe ? 'pizza' : 'o_pizza';
+                ds.setPizza(
+                new Pizza(game,ds.getPizza().x,ds.getPizza().y,0.6,k));
                 break;
-
+            case action.GAME_OVER:
+                if(action.isMe) console.log("you win")
+                else console.log("you lose")
+                break;    
+            case action.WRONG_PIZZA:
+                    console.log("WRONG PIZZA")
+                break;
         }
     }.bind(this));
 

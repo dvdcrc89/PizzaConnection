@@ -1,19 +1,8 @@
 PizzaConnection.Menu = {
         preload: function() {
-        
-
         this.menuAction = new MenuActions(game)
-
         this.background =  game.add.sprite( 0, 0 , 'm_background');
         this.background.scale.setTo(0.6);
-
-        
-        //     this.start
-        // this.start.button.scale.setTo(0.7)
-        // this.start.button.anchor.setTo(0.5)
-
-
-
         this.title = game.add.sprite(game.world.centerX,game.world.centerY - 100,'m_title')
         this.title.scale.setTo(0.5)
         this.title.anchor.setTo(0.5)
@@ -35,7 +24,4 @@ PizzaConnection.Menu = {
     update: function() {
         this.pizzaBack.angle += 1;
     },
-    onLoadComplete: function() {
-
-    }
 };
