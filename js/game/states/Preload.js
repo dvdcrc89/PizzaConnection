@@ -71,14 +71,12 @@ PizzaConnection.Preload = {
     },
     create: function() {
         // this.preloadBar.cropEnabled = false;
-        Client.socket.emit("join");
 
     },
     update: function() {
       
         if (this.ready === true) {
-
-            // this.state.start('Game');
+            this.state.start('Menu');
         }
     },
     onLoadComplete: function() {

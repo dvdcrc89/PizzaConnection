@@ -14,7 +14,9 @@ Pizza = function(game, x, y, scale,key) {
     this.hasIngredient = function(ingredientKey) {
         return this.ingredientsArray.includes(ingredientKey) ? true : false;
     }
-
+    this.getIngredients = function(){
+        return this.ingredientsArray;
+    }
 
 }
 Pizza.prototype = Object.create(Phaser.Sprite.prototype);

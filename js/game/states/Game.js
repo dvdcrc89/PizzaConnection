@@ -76,7 +76,7 @@ PizzaConnection.Game = {
              this.mozzButton8 = new Command(game,
              this.playerAction,
              Phaser.Keyboard.SPACEBAR,
-             this.playerAction.get().TRASH_PIZZA).createButton(476,450,70,40,'b_oven');
+             this.playerAction.get().PIZZA_COMPLETE).createButton(476,450,70,40,'b_oven');
             
              this.mozzButton9 = new Command(game,
              this.playerAction,
@@ -97,9 +97,9 @@ PizzaConnection.Game = {
     },
     actionOnClick: function() {
         if(this.pizzaList.alpha == 1)
-        this.pizzaList.alpha = 0;
+            this.pizzaList.alpha = 0;
         else{
-        this.pizzaList.alpha = 1;
+            this.pizzaList.alpha = 1;
         }
     }
 
