@@ -103,7 +103,9 @@ server.listen(PORT, function() {
 });
 
 function setGame(client1, client2, roomId) {
-    orders = ["Margherita", "Capricciosa", "Diavola", "Margherita"]
+    orders = randomOrders(4);
+    console.log(orders);
+
     match = {
         orders,
         client1: client1.id,
@@ -161,6 +163,8 @@ function handlePizzaComplete(pizza,client){
                 isMe: false
             });
         });
+        console.log("WRONG PIZZA");
+        console.log("**********************");
         return false;
     } else {
         game[game.indexOf(match)] = updateGameObject(isP1,match,client);
@@ -169,6 +173,7 @@ function handlePizzaComplete(pizza,client){
 
 function updateGameObject(isP1,match,client){
     if(!isGameEnded(isP1,match,client)){
+        console.log(match);
         if(isP1) return {...match,pizza1:match.pizza1+1}
         else return {...match,pizza2:match.pizza2+1}
 
@@ -178,41 +183,15 @@ function updateGameObject(isP1,match,client){
 
 
 function isGameEnded(isP1,match,client){
-    if(isP1){
-        console.log(match.pizza2,match.orders.length)
-        if(match.pizza1 >= match.orders.length-1){
-            client.emit('server_action', {
-                type: GAME_OVER,
-                isMe: true
-            });
-       
-                client.broadcast.to(match.roomId).emit('server_action', {
-                    type: GAME_OVER,
-                    isMe: false
-                }); 
-                console.log("P1 won");
-            return true;
+    if((isP1 && match.pizza1 >= match.orders.length-1) ||(!isP1 && match.pizza2 >= match.orders.length-1)){
+        client.emit('gameover',true);
+        client.broadcast.to(match.roomId).emit('gameover',false);
+        return true;
         }
-    } else { 
-        console.log(match.pizza2,match.orders.length)
-        if(match.pizza2 >= match.orders.length-1){
-            client.emit('server_action', {
-                type: GAME_OVER,
-                isMe: true
-            });
-                client.broadcast.to(match.roomId).emit('server_action', {
-                    type: GAME_OVER,
-                    isMe: false
-                });
-                console.log("P2 won");
-            return true;
-        }
-
-    }
     return false;
 }    
 
 function randomOrders(num){
-    let pizzas = Object.keys(pizzasName);
-
+    return Object.values(pizzasName).sort(() => 0.5 - Math.random()).slice(0, num);
+   
 }

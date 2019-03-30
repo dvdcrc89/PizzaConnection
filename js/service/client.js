@@ -11,6 +11,11 @@ Client.socket.on("start",function(){
     game.state.start('Game');
 ;
 })
+Client.socket.on("gameover",function(isWinner){
+    console.log("received")
+    game.state.start('Menu');
+;
+})
 Client.socket.on("disconnect",function(){
     console.log("player has disconnet");
 })

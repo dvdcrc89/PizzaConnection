@@ -69,9 +69,8 @@ PlayerAction = function(game) {
                 new Pizza(game,ds.getPizza().x,ds.getPizza().y,0.6,k));
                 break;
             case action.GAME_OVER:
-                if(action.isMe) console.log("you win")
-                else console.log("you lose")
-                break;    
+            game.state.start('Menu');
+            break;    
             case action.WRONG_PIZZA:
                     console.log("WRONG PIZZA")
                 break;
