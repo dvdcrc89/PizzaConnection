@@ -147,8 +147,7 @@ function validatePizza(pizzaType, pizza) {
 
 function handlePizzaComplete(pizza,client){
     let match = getGameByClient(client);
-    console.log(match);
-    let isP1 = game.client1 == client.id ? true : false;
+    let isP1 = match.client1 == client.id ? true : false;
     let pizzaIndex = isP1 ? match.pizza1 : match.pizza2;
     let isCorrect = validatePizza(match.orders[pizzaIndex],pizza,client);
     if(!isCorrect){
@@ -212,3 +211,8 @@ function isGameEnded(isP1,match,client){
     }
     return false;
 }    
+
+function randomOrders(num){
+    let pizzas = Object.keys(pizzasName);
+
+}
