@@ -74,6 +74,7 @@ PlayerAction = function(game) {
             case action.WRONG_PIZZA:
                     console.log("WRONG PIZZA")
                 break;
+            
         }
     }.bind(this));
 

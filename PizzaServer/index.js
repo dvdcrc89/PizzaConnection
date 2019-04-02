@@ -51,6 +51,7 @@ const GAME_OVER= "[GAME] GAME OVER";
 io.sockets.on('connection', function(client) {
 
     client.on('join', function() {
+        console.log("Active Game:", game.length);
         if (!playerToMarry) {
             playerToMarry = client;
         } else {
@@ -58,10 +59,11 @@ io.sockets.on('connection', function(client) {
             let id = "ROOM" + roomno;
             playerToMarry.join(id);
             client.join(id);
+            let match = setGame(client, playerToMarry, id);
             client.emit("start");
             playerToMarry.emit("start");
-            setGame(client, playerToMarry, id);
             playerToMarry = null;
+            sendOrders(match,client);
         }
 
     });
@@ -104,17 +106,21 @@ server.listen(PORT, function() {
 
 function setGame(client1, client2, roomId) {
     orders = randomOrders(4);
-    console.log(orders);
-
+  
     match = {
         orders,
         client1: client1.id,
         client2: client2.id,
         pizza1: 0,
         pizza2: 0,
-        roomId
+        roomId,
+        round:1,
+
     }
     game.push(match);
+    return match; 
+    
+
 }
 
 function getGameByClient(client) {
@@ -157,17 +163,17 @@ function handlePizzaComplete(pizza,client){
             type: WRONG_PIZZA,
             isMe: true
         });
-        Object.keys(match.roomId).forEach(function(room) {
-            client.broadcast.to(room).emit('server_action', {
+            client.broadcast.to(match.roomId).emit('server_action', {
                 type: WRONG_PIZZA,
                 isMe: false
             });
-        });
         console.log("WRONG PIZZA");
         console.log("**********************");
         return false;
     } else {
-        game[game.indexOf(match)] = updateGameObject(isP1,match,client);
+        let updatedMatch = updateGameObject(isP1,match,client);
+        game[game.indexOf(match)] = updatedMatch; 
+        sendOrders( updatedMatch,client);
     }
 }
 
@@ -194,4 +200,10 @@ function isGameEnded(isP1,match,client){
 function randomOrders(num){
     return Object.values(pizzasName).sort(() => 0.5 - Math.random()).slice(0, num);
    
+}
+function sendOrders(match,client){
+        let isP1 = client.id === match.client1 ? true : false;
+    
+        client.emit('orders',{...match,isP1});
+        client.broadcast.to(match.roomId).emit('orders',{...match,isP1});
 }
