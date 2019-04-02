@@ -41,7 +41,7 @@ const pizzas = [{
     ingredients: [ingredients.mozzarella, ingredients.mushroom, ingredients.ham, ingredients.artichokes]
 }, {
     name: pizzasName.meat,
-    ingredients: [ingredients.mozzarella, ingredients.mushroom, ingredients.ham, ingredients.artichokes, ingredients.salami]
+    ingredients: [ingredients.mozzarella, ingredients.mushroom, ingredients.ham, ingredients.salami]
 }]
 const PIZZA_COMPLETE = "[PIZZA] DELIVER PIZZA";
 const WRONG_PIZZA= "[PIZZA] WRONG PIZZA"
@@ -172,18 +172,18 @@ function handlePizzaComplete(pizza,client){
         return false;
     } else {
         let updatedMatch = updateGameObject(isP1,match,client);
-        game[game.indexOf(match)] = updatedMatch; 
+            if(updatedMatch){
+            game[game.indexOf(match)] = updatedMatch; 
         sendOrders( updatedMatch,client);
+        }
     }
 }
 
 function updateGameObject(isP1,match,client){
-    if(!isGameEnded(isP1,match,client)){
-        console.log(match);
-        if(isP1) return {...match,pizza1:match.pizza1+1}
-        else return {...match,pizza2:match.pizza2+1}
-
-    }
+    if(!isGameEnded(isP1,match,client))
+        return isP1 ? {...match,pizza1:match.pizza1+1} : {...match,pizza2:match.pizza2+1}
+    
+    return false
 }
 
 
