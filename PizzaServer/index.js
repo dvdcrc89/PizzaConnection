@@ -59,9 +59,8 @@ io.sockets.on('connection', function (client) {
 			let id = "ROOM" + roomno;
 			playerToMarry.join(id);
 			client.join(id);
-			let match = setGame(client, playerToMarry, id,1);
+			let match = setGame(client, playerToMarry, id);
 			let isP1 = match.client1 == client.id ? true : false;
-
 			client.emit("start",{match,isP1});
 			playerToMarry.emit("start",{match,isP1:!isP1});
 			playerToMarry = null;
@@ -83,9 +82,7 @@ io.sockets.on('connection', function (client) {
 			});
 		});
 		if (data.action === PIZZA_COMPLETE) {
-			handlePizzaComplete(data.pizza, client);
-			validatePizza(pizzasName.diavola, data.pizza);
-			
+			handlePizzaComplete(data.pizza, client);			
 		}
 	});
 	client.on('disconnect', function () {
@@ -102,9 +99,8 @@ server.listen(PORT, function () {
 	console.log('Listening on ' + server.address().port);
 });
 
-function setGame(client1, client2, roomId,round) {
+function setGame(client1, client2, roomId) {
 	orders = randomOrders(4);
-
 	match = {
 		orders,
 		client1: client1.id,
@@ -119,16 +115,10 @@ function setGame(client1, client2, roomId,round) {
 	}
 	game.push(match);
 	return match;
-
-
 }
 
 function getGameByClient(client) {
 	return game.filter(match => match.client1 === client.id || match.client2 === client.id)[0];
-}
-
-function getGameByRoom(roomId) {
-	return game.filter(match => match.roomId === roomId)[0];
 }
 
 function removeGame(client) {
@@ -191,24 +181,30 @@ function updateGameObject(isP1, match, client) {
 	return false
 }
 function isRoundEnded(isP1, match, client) {
+
 	const sendUpdatedMatch = (match,updateMatch,client)=>{
 		let isP1 = match.client1 == client.id ? true : false;
         client.emit("start",{match:updateMatch,isP1});
         client.broadcast.to(match.roomId).emit('start', {match:updateMatch,isP1:!isP1});
 	}
+	const newMatch = (match,isP1)=>{
+		let updateMatch = match;
+		updateMatch.round = match.round+1
+		updateMatch.orders = randomOrders(4);
+		updateMatch.pizza1 = 0;
+		updateMatch.pizza2 = 0;
+		isP1 ? updateMatch.p1 = match.p1+1 : updateMatch.p2 = match.p2+1;
+		return updateMatch;
+	}
+
     if (isP1 && match.pizza1 >= match.orders.length - 1) {
         if(match.p1 === 2){
             client.emit('gameover', true);
             client.broadcast.to(match.roomId).emit('gameover', false);
             return true;
         } else{
-           let updateMatch = match;
-            updateMatch.p1 = match.p1+1;
-            updateMatch.round = match.round+1
-            updateMatch.orders = randomOrders(4);
-            updateMatch.pizza1 = 0;
-            updateMatch.pizza2 = 0;
-			game[game.indexOf(match)] = updateMatch;
+			let updateMatch = newMatch(match,true)
+			game[game.indexOf(match)] = updateMatch ;
 			sendUpdatedMatch(match,updateMatch,client);
             return true;
         }
@@ -219,13 +215,8 @@ function isRoundEnded(isP1, match, client) {
             client.broadcast.to(match.roomId).emit('gameover', false);
             return true;
         } else{
-           let updateMatch = match;
-            updateMatch.p2 = match.p2+1;
-            updateMatch.round = match.round+1
-            updateMatch.orders = randomOrders(4);
-            updateMatch.pizza1 = 0;
-            updateMatch.pizza2 = 0;
-            game[game.indexOf(match)] = updateMatch;
+			let updateMatch = newMatch(match,false)
+			game[game.indexOf(match)] = updateMatch ;
 			sendUpdatedMatch(match,updateMatch,client);
             return true;
         }
@@ -235,16 +226,6 @@ function isRoundEnded(isP1, match, client) {
     
 }
 
-// function isRoundEnded(isP1, match, client) {
-// 	if ((isP1 && match.pizza1 >= match.orders.length - 1) || (!isP1 && match.pizza2 >= match.orders.length - 1)) {
-//         console.log(match,"gameover")
-//         client.emit('gameover', true);
-// 		client.broadcast.to(match.roomId).emit('gameover', false);
-// 		return true;
-// 	}
-// 	return false;
-// }
-
 function randomOrders(num) {
 	return Object.values(pizzasName).sort(() => 0.5 - Math.random()).slice(0, num);
 
@@ -252,6 +233,5 @@ function randomOrders(num) {
 
 function sendOrders(match, client) {
 	client.emit('orders', match)
-	
 	client.broadcast.to(match.roomId).emit('orders', match);
 }
