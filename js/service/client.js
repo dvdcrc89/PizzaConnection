@@ -1,6 +1,6 @@
 var Client = {};
 // var playerAction = new PlayerAction(game)
-Client.socket = io('https://dvdcrc89.github.io/PizzaConnection/');
+Client.socket = io('http://localhost:55000');
 
 Client.sendAction = function(action,pizza){
     console.log("test sent");
@@ -12,8 +12,7 @@ Client.socket.on("start",function(){
 })
 Client.socket.on("gameover",function(isWinner){
     console.log("received")
-    game.state.start('Menu');
-;
+    isWinner? game.state.start('Win') : game.state.start('Lose');
 })
 Client.socket.on("disconnect",function(){
     console.log("player has disconnet");

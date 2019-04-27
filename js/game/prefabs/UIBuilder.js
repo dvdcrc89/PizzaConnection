@@ -44,7 +44,7 @@ UIBuilder = function(game) {
 
     this.createOrder = function(match){
         if(this.orders) this.orders.destroy();
-        this.orders =game.add.group();
+        this.orders = game.add.group();
         
         x = 860;
         y = 368;   
@@ -65,7 +65,6 @@ UIBuilder = function(game) {
     }
 
     Client.socket.on("orders",function(match){
-        
         setTimeout(()=>this.createOrder(match),1000);
     }.bind(this))
 }
