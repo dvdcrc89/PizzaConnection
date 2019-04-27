@@ -203,9 +203,10 @@ function isRoundEnded(isP1, match, client) {
             updateMatch.orders = randomOrders(4);
             updateMatch.pizza1 = 0;
             updateMatch.pizza2 = 0;
-            game[game.indexOf(match)] = updateMatch;
-            client.emit("start",updateMatch);
-            client.broadcast.to(match.roomId).emit('start', updateMatch);
+			game[game.indexOf(match)] = updateMatch;
+			let isP1 = match.client1 == client.id ? true : false;
+            client.emit("start",{match:updateMatch,isP1});
+            client.broadcast.to(match.roomId).emit('start', {match:updateMatch,isP1:!isP1});
             return true;
         }
 
