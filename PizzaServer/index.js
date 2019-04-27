@@ -191,6 +191,11 @@ function updateGameObject(isP1, match, client) {
 	return false
 }
 function isRoundEnded(isP1, match, client) {
+	const sendUpdatedMatch = (match,updateMatch,client)=>{
+		let isP1 = match.client1 == client.id ? true : false;
+        client.emit("start",{match:updateMatch,isP1});
+        client.broadcast.to(match.roomId).emit('start', {match:updateMatch,isP1:!isP1});
+	}
     if (isP1 && match.pizza1 >= match.orders.length - 1) {
         if(match.p1 === 2){
             client.emit('gameover', true);
@@ -204,9 +209,7 @@ function isRoundEnded(isP1, match, client) {
             updateMatch.pizza1 = 0;
             updateMatch.pizza2 = 0;
 			game[game.indexOf(match)] = updateMatch;
-			let isP1 = match.client1 == client.id ? true : false;
-            client.emit("start",{match:updateMatch,isP1});
-            client.broadcast.to(match.roomId).emit('start', {match:updateMatch,isP1:!isP1});
+			sendUpdatedMatch(match,updateMatch,client);
             return true;
         }
 
@@ -223,8 +226,7 @@ function isRoundEnded(isP1, match, client) {
             updateMatch.pizza1 = 0;
             updateMatch.pizza2 = 0;
             game[game.indexOf(match)] = updateMatch;
-            client.emit("start",updateMatch);
-            client.broadcast.to(match.roomId).emit('start', updateMatch);
+			sendUpdatedMatch(match,updateMatch,client);
             return true;
         }
 
