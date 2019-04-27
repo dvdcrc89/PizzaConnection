@@ -4,7 +4,7 @@ let width = window.innerWidth
 if (width>1366*2) width=1366*2
 console.log(window.innerHeight);
 let game = new Phaser.Game(1150,653 , Phaser.AUTO, '');
-
+let uiBuilder = new UIBuilder(game);
 game.state.add('Boot', PizzaConnection.Boot);
 game.state.add('Menu', PizzaConnection.Menu);
 game.state.add('Preloader', PizzaConnection.Preload);

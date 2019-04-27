@@ -41,7 +41,7 @@ const pizzas = [{
     ingredients: [ingredients.mozzarella, ingredients.mushroom, ingredients.ham, ingredients.artichokes]
 }, {
     name: pizzasName.meat,
-    ingredients: [ingredients.mozzarella, ingredients.mushroom, ingredients.ham, ingredients.artichokes, ingredients.salami]
+    ingredients: [ingredients.mozzarella, ingredients.mushroom, ingredients.ham, ingredients.salami]
 }]
 const PIZZA_COMPLETE = "[PIZZA] DELIVER PIZZA";
 const WRONG_PIZZA= "[PIZZA] WRONG PIZZA"
@@ -51,6 +51,7 @@ const GAME_OVER= "[GAME] GAME OVER";
 io.sockets.on('connection', function(client) {
 
     client.on('join', function() {
+        console.log("Active Game:", game.length);
         if (!playerToMarry) {
             playerToMarry = client;
         } else {
@@ -58,10 +59,11 @@ io.sockets.on('connection', function(client) {
             let id = "ROOM" + roomno;
             playerToMarry.join(id);
             client.join(id);
+            let match = setGame(client, playerToMarry, id);
             client.emit("start");
             playerToMarry.emit("start");
-            setGame(client, playerToMarry, id);
             playerToMarry = null;
+            sendOrders(match,client);
         }
 
     });
@@ -103,16 +105,22 @@ server.listen(PORT, function() {
 });
 
 function setGame(client1, client2, roomId) {
-    orders = ["Margherita", "Capricciosa", "Diavola", "Margherita"]
+    orders = randomOrders(4);
+  
     match = {
         orders,
         client1: client1.id,
         client2: client2.id,
         pizza1: 0,
         pizza2: 0,
-        roomId
+        roomId,
+        round:1,
+
     }
     game.push(match);
+    return match; 
+    
+
 }
 
 function getGameByClient(client) {
@@ -147,8 +155,7 @@ function validatePizza(pizzaType, pizza) {
 
 function handlePizzaComplete(pizza,client){
     let match = getGameByClient(client);
-    console.log(match);
-    let isP1 = game.client1 == client.id ? true : false;
+    let isP1 = match.client1 == client.id ? true : false;
     let pizzaIndex = isP1 ? match.pizza1 : match.pizza2;
     let isCorrect = validatePizza(match.orders[pizzaIndex],pizza,client);
     if(!isCorrect){
@@ -156,59 +163,47 @@ function handlePizzaComplete(pizza,client){
             type: WRONG_PIZZA,
             isMe: true
         });
-        Object.keys(match.roomId).forEach(function(room) {
-            client.broadcast.to(room).emit('server_action', {
+            client.broadcast.to(match.roomId).emit('server_action', {
                 type: WRONG_PIZZA,
                 isMe: false
             });
-        });
+        console.log("WRONG PIZZA");
+        console.log("**********************");
         return false;
     } else {
-        game[game.indexOf(match)] = updateGameObject(isP1,match,client);
+        let updatedMatch = updateGameObject(isP1,match,client);
+            if(updatedMatch){
+            game[game.indexOf(match)] = updatedMatch; 
+        sendOrders( updatedMatch,client);
+        }
     }
 }
 
 function updateGameObject(isP1,match,client){
-    if(!isGameEnded(isP1,match,client)){
-        if(isP1) return {...match,pizza1:match.pizza1+1}
-        else return {...match,pizza2:match.pizza2+1}
-
-    }
+    if(!isGameEnded(isP1,match,client))
+        return isP1 ? {...match,pizza1:match.pizza1+1} : {...match,pizza2:match.pizza2+1}
+    
+    return false
 }
 
 
 
 function isGameEnded(isP1,match,client){
-    if(isP1){
-        console.log(match.pizza2,match.orders.length)
-        if(match.pizza1 >= match.orders.length-1){
-            client.emit('server_action', {
-                type: GAME_OVER,
-                isMe: true
-            });
-       
-                client.broadcast.to(match.roomId).emit('server_action', {
-                    type: GAME_OVER,
-                    isMe: false
-                }); 
-                console.log("P1 won");
-            return true;
+    if((isP1 && match.pizza1 >= match.orders.length-1) ||(!isP1 && match.pizza2 >= match.orders.length-1)){
+        client.emit('gameover',true);
+        client.broadcast.to(match.roomId).emit('gameover',false);
+        return true;
         }
-    } else { 
-        console.log(match.pizza2,match.orders.length)
-        if(match.pizza2 >= match.orders.length-1){
-            client.emit('server_action', {
-                type: GAME_OVER,
-                isMe: true
-            });
-                client.broadcast.to(match.roomId).emit('server_action', {
-                    type: GAME_OVER,
-                    isMe: false
-                });
-                console.log("P2 won");
-            return true;
-        }
-
-    }
     return false;
 }    
+
+function randomOrders(num){
+    return Object.values(pizzasName).sort(() => 0.5 - Math.random()).slice(0, num);
+   
+}
+function sendOrders(match,client){
+        let isP1 = client.id === match.client1 ? true : false;
+    
+        client.emit('orders',{...match,isP1});
+        client.broadcast.to(match.roomId).emit('orders',{...match,isP1});
+}
