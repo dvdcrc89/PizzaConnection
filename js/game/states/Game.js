@@ -6,6 +6,8 @@ PizzaConnection.Game.prototype = {
         this.uiBuilder.createStage();
         this.uiBuilder.setupOrderList();
         this.uiBuilder.createButtons();
+        backMusic = game.add.audio('a_game');
+        backMusic.play();
 },
 
     update: function(){ },

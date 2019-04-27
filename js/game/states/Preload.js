@@ -63,6 +63,16 @@ PizzaConnection.Preload = {
 
         this.load.spritesheet('opponent', 'assets/images/opponent/opponent.png', 420, 399, 3);
 
+        this.load.audio('a_menu', 'assets/sounds/menu.mp3')
+        this.load.audio('a_game', 'assets/sounds/menu.mp3')
+        this.load.audio('a_yes', 'assets/sounds/menu.mp3')
+        this.load.audio('a_no', 'assets/sounds/menu.mp3')
+        this.load.audio('a_win', 'assets/sounds/menu.mp3')
+        this.load.audio('a_lose', 'assets/sounds/menu.mp3')
+
+
+
+
 
 
 

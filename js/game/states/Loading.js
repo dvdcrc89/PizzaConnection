@@ -1,6 +1,7 @@
 PizzaConnection.Loading = function(){}
 PizzaConnection.Loading = {
     preload: function() {
+        music.stop()
         this.background =  game.add.sprite( 0, 0 , 'm_background');
         this.background.scale.setTo(0.6);
         this.pizzaBack = game.add.sprite(game.world.centerX,300,'m_pizzaBack')

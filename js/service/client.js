@@ -1,6 +1,6 @@
 var Client = {};
 // var playerAction = new PlayerAction(game)
-Client.socket = io('https://pizzaconnection.herokuapp.com');
+Client.socket = io('https://dvdcrc89.github.io/PizzaConnection/');
 
 Client.sendAction = function(action,pizza){
     console.log("test sent");
