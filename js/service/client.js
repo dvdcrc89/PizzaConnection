@@ -6,8 +6,9 @@ Client.sendAction = function(action,pizza){
     console.log("test sent");
     Client.socket.emit("action",{action,pizza});
 };
-Client.socket.on("start",function(){
-    console.log("received")
+Client.socket.on("start",function(match){
+    console.log(match)
+    golbalMatch = match;
     game.state.start('Game');
 })
 Client.socket.on("gameover",function(isWinner){

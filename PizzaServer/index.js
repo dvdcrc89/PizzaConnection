@@ -59,9 +59,9 @@ io.sockets.on('connection', function (client) {
 			let id = "ROOM" + roomno;
 			playerToMarry.join(id);
 			client.join(id);
-			let match = setGame(client, playerToMarry, id);
-			client.emit("start");
-			playerToMarry.emit("start");
+			let match = setGame(client, playerToMarry, id,1);
+			client.emit("start",match);
+			playerToMarry.emit("start",match);
 			playerToMarry = null;
 			sendOrders(match, client);
 		}
@@ -104,7 +104,7 @@ server.listen(PORT, function () {
 	console.log('Listening on ' + server.address().port);
 });
 
-function setGame(client1, client2, roomId) {
+function setGame(client1, client2, roomId,round) {
 	orders = randomOrders(4);
 
 	match = {
@@ -114,7 +114,9 @@ function setGame(client1, client2, roomId) {
 		pizza1: 0,
 		pizza2: 0,
 		roomId,
-		round: 1,
+        round: 1,
+        p1: 0,
+        p2:0
 
 	}
 	game.push(match);
@@ -180,7 +182,7 @@ function handlePizzaComplete(pizza, client) {
 }
 
 function updateGameObject(isP1, match, client) {
-	if (!isGameEnded(isP1, match, client))
+	if (!isRoundEnded(isP1, match, client))
 		return isP1 ? { ...match,
 			pizza1: match.pizza1 + 1
 		} : { ...match,
@@ -189,17 +191,57 @@ function updateGameObject(isP1, match, client) {
 
 	return false
 }
+function isRoundEnded(isP1, match, client) {
+    if (isP1 && match.pizza1 >= match.orders.length - 1) {
+        if(match.p1 === 2){
+            client.emit('gameover', true);
+            client.broadcast.to(match.roomId).emit('gameover', false);
+            return true;
+        } else{
+           let updateMatch = match;
+            updateMatch.p1 = match.p1+1;
+            updateMatch.round = match.round+1
+            updateMatch.orders = randomOrders(4);
+            updateMatch.pizza1 =0;
+            updateMatch.pizza2 = 0;
+            game[game.indexOf(match)] = updateMatch;
+            client.emit("start",match);
+            client.broadcast.to(match.roomId).emit('start', match);
+            return true;
+        }
 
+    } else if (!isP1 && match.pizza2 >= match.orders.length - 1) {
+        if(match.p2 === 2){
+            client.emit('gameover', true);
+            client.broadcast.to(match.roomId).emit('gameover', false);
+            return true;
+        } else{
+           let updateMatch = match;
+            updateMatch.p2 = match.p2+1;
+            updateMatch.round = match.round+1
+            updateMatch.orders = randomOrders(4);
+            updateMatch.pizza1 =0;
+            updateMatch.pizza2 = 0;
+            game[game.indexOf(match)] = updateMatch;
+            client.emit("start",match);
+            client.broadcast.to(match.roomId).emit('start', match);
+            return true;
+        }
 
-function isGameEnded(isP1, match, client) {
-	if ((isP1 && match.pizza1 >= match.orders.length - 1) || (!isP1 && match.pizza2 >= match.orders.length - 1)) {
-        console.log(match,"gameover")
-        client.emit('gameover', true);
-		client.broadcast.to(match.roomId).emit('gameover', false);
-		return true;
-	}
-	return false;
+    }
+    return false;
+    
 }
+
+// function isRoundEnded(isP1, match, client) {
+// 	if ((isP1 && match.pizza1 >= match.orders.length - 1) || (!isP1 && match.pizza2 >= match.orders.length - 1)) {
+//         console.log(match,"gameover")
+//         client.emit('gameover', true);
+// 		client.broadcast.to(match.roomId).emit('gameover', false);
+// 		return true;
+// 	}
+// 	return false;
+// }
 
 function randomOrders(num) {
 	return Object.values(pizzasName).sort(() => 0.5 - Math.random()).slice(0, num);

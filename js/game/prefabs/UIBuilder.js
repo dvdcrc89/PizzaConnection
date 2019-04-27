@@ -42,19 +42,19 @@ UIBuilder = function(game) {
         new Command(game, this.playerAction, Phaser.Keyboard.ENTER, this.playerAction.get().TRASH_PIZZA).createButton(590, 450, 70, 40, "b_delete");
     };
 
-    this.createOrder = function(match){
+    this.createOrder = function(){
         if(this.orders) this.orders.destroy();
         this.orders = game.add.group();
         
         x = 860;
         y = 368;   
-        match.orders.forEach((order,index)=>{
+        golbalMatch.orders.forEach((order,index)=>{
             let you ="";
             let him ="";
-            if(match.isP1 && match.pizza1 === index || !match.isP1 && match.pizza2 === index ){
+            if(golbalMatch.isP1 && golbalMatch.pizza1 === index || !golbalMatch.isP1 && golbalMatch.pizza2 === index ){
                 you = "X"
             }
-            if(!match.isP1 && match.pizza1 === index || match.isP1 && match.pizza2 === index ){
+            if(!golbalMatch.isP1 && golbalMatch.pizza1 === index || golbalMatch.isP1 && golbalMatch.pizza2 === index ){
                 him = "Y"
             }
             this.orders.add(this.game.add.text(x,y+(index*41),you+"  "+order+"  "+him,{
@@ -65,7 +65,9 @@ UIBuilder = function(game) {
     }
 
     Client.socket.on("orders",function(match){
-        setTimeout(()=>this.createOrder(match),1000);
+        console.log("orders received");
+        golbalMatch.orders = match.orders;
+        setTimeout(()=>this.createOrder(),300);
     }.bind(this))
 }
 
