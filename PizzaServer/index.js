@@ -202,11 +202,11 @@ function isRoundEnded(isP1, match, client) {
             updateMatch.p1 = match.p1+1;
             updateMatch.round = match.round+1
             updateMatch.orders = randomOrders(4);
-            updateMatch.pizza1 =0;
+            updateMatch.pizza1 = 0;
             updateMatch.pizza2 = 0;
             game[game.indexOf(match)] = updateMatch;
-            client.emit("start",match);
-            client.broadcast.to(match.roomId).emit('start', match);
+            client.emit("start",updateMatch);
+            client.broadcast.to(match.roomId).emit('start', updateMatch);
             return true;
         }
 
@@ -220,11 +220,11 @@ function isRoundEnded(isP1, match, client) {
             updateMatch.p2 = match.p2+1;
             updateMatch.round = match.round+1
             updateMatch.orders = randomOrders(4);
-            updateMatch.pizza1 =0;
+            updateMatch.pizza1 = 0;
             updateMatch.pizza2 = 0;
             game[game.indexOf(match)] = updateMatch;
-            client.emit("start",match);
-            client.broadcast.to(match.roomId).emit('start', match);
+            client.emit("start",updateMatch);
+            client.broadcast.to(match.roomId).emit('start', updateMatch);
             return true;
         }
 
