@@ -60,8 +60,10 @@ io.sockets.on('connection', function (client) {
 			playerToMarry.join(id);
 			client.join(id);
 			let match = setGame(client, playerToMarry, id,1);
-			client.emit("start",match);
-			playerToMarry.emit("start",match);
+			let isP1 = match.client1 == client.id ? true : false;
+
+			client.emit("start",{match,isP1});
+			playerToMarry.emit("start",{match,isP1:!isP1});
 			playerToMarry = null;
 			sendOrders(match, client);
 		}
@@ -82,12 +84,8 @@ io.sockets.on('connection', function (client) {
 		});
 		if (data.action === PIZZA_COMPLETE) {
 			handlePizzaComplete(data.pizza, client);
-			let isPizzaCorrect = validatePizza(pizzasName.diavola, data.pizza);
-			if (isPizzaCorrect) {
-
-			} else {
-
-			}
+			validatePizza(pizzasName.diavola, data.pizza);
+			
 		}
 	});
 	client.on('disconnect', function () {
@@ -174,6 +172,7 @@ function handlePizzaComplete(pizza, client) {
 		return false;
 	} else {
 		let updatedMatch = updateGameObject(isP1, match, client);
+		console.log(updatedMatch);
 		if (updatedMatch) {
 			game[game.indexOf(match)] = updatedMatch;
 			sendOrders(updatedMatch, client);
@@ -249,11 +248,7 @@ function randomOrders(num) {
 }
 
 function sendOrders(match, client) {
-	let isP1 = client.id === match.client1 ? true : false;
-	client.emit('orders', { ...match,
-		isP1
-	});
-	client.broadcast.to(match.roomId).emit('orders', { ...match,
-		isP1
-	});
+	client.emit('orders', match)
+	
+	client.broadcast.to(match.roomId).emit('orders', match);
 }
