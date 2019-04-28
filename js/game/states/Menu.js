@@ -14,9 +14,9 @@ PizzaConnection.Menu = {
         this.pizzaBack.scale.setTo(0.5)
         game.add.tween(this.pizzaBack).from( { x: -200 }, 2000, Phaser.Easing.Bounce.Out, true);
         this.start = new Command (game,
-            this.menuAction,
-            Phaser.Keyboard.ENTER,
-            this.menuAction.get().START_GAME).createButton(game.world.centerX,game.world.centerY + 50, 358,133, 'm_start',);
+        this.menuAction,
+        Phaser.Keyboard.ENTER,
+        this.menuAction.get().START_GAME).createButton(game.world.centerX,game.world.centerY + 50, 358,133, 'm_start',);
             // this.start.button.alpha = 0;
             // game.add.tween(this.start.button).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
     },

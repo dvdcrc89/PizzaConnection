@@ -236,14 +236,10 @@ function isRoundEnded(isP1, match, client) {
 
     }
     return false;
-
 }
-
 function randomOrders(num) {
     return Object.values(pizzasName).sort(() => 0.5 - Math.random()).slice(0, num);
-
 }
-
 function sendOrders(match, client) {
     client.emit('orders', match)
     client.broadcast.to(match.roomId).emit('orders', match);
