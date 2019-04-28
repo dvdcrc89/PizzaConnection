@@ -45,17 +45,18 @@ UIBuilder = function(game) {
     this.createOrder = function(){
         if(this.orders) this.orders.destroy();
         this.orders = game.add.group();
-        
+        console.log("running");
         x = 860;
         y = 368;   
         golbalMatch.orders.forEach((order,index)=>{
             let you ="";
             let him ="";
-            if(golbalMatch.isP1 && golbalMatch.pizza1 === index || !golbalMatch.isP1 && golbalMatch.pizza2 === index ){
-                you = "X"
-            }
-            if(!golbalMatch.isP1 && golbalMatch.pizza1 === index || golbalMatch.isP1 && golbalMatch.pizza2 === index ){
-                him = "Y"
+            console.log(isP1,golbalMatch.pizza1,golbalMatch.pizza2);
+            if((isP1 && golbalMatch.pizza1 === index) || (!isP1 && golbalMatch.pizza2 === index) ){
+                you = "Me";
+            } 
+            if((!isP1 && golbalMatch.pizza1 === index) || (isP1 && golbalMatch.pizza2 === index) ){
+                him = "You"
             }
             this.orders.add(this.game.add.text(x,y+(index*41),you+"  "+order+"  "+him,{
                 font: "bold 18px Arial", fill: "#4d4d4d4", boundsAlignH: "center", boundsAlignV: "middle"
@@ -66,7 +67,7 @@ UIBuilder = function(game) {
 
     Client.socket.on("orders",function(match){
         console.log("orders received");
-        golbalMatch.orders = match.orders;
+        golbalMatch = match;
         setTimeout(()=>this.createOrder(),300);
     }.bind(this))
 }
