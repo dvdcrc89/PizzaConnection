@@ -16,6 +16,7 @@ MenuActions = function(game) {
                 // game.scale.startFullScreen(false);
                 game.state.start('Loading');
                 Client.socket.emit("join");
+                music.stop();
                 break;
 
         }

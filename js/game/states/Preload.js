@@ -26,6 +26,8 @@ PizzaConnection.Preload = {
         this.load.spritesheet('person_2', 'assets/images/people/person_2.png', 300, 416, 2);
         this.load.spritesheet('person_3', 'assets/images/people/person_3.png', 300, 416, 2);
 
+        this.load.image('youwin', 'assets/images/buttons/youwin.png');
+        this.load.image('youlose', 'assets/images/buttons/youlose.png');
 
         this.load.image('pizza', 'assets/images/pizza.png');
         this.load.image('o_pizza', 'assets/images/opponent/o_pizza.png')
@@ -48,6 +50,7 @@ PizzaConnection.Preload = {
         this.load.image('b_oven', 'assets/images/buttons/b_oven.png');
         this.load.image('b_delete', 'assets/images/buttons/b_delete.png');
         this.load.image('b_menu','assets/images/buttons/b_menu.png')
+        this.load.image('b_backmenu','assets/images/buttons/b_backmenu.png')
 
         //menu
         this.load.image('m_background', 'assets/images/buttons/background.png');
@@ -64,11 +67,11 @@ PizzaConnection.Preload = {
         this.load.spritesheet('opponent', 'assets/images/opponent/opponent.png', 420, 399, 3);
 
         this.load.audio('a_menu', 'assets/sounds/menu.mp3')
-        this.load.audio('a_game', 'assets/sounds/menu.mp3')
-        this.load.audio('a_yes', 'assets/sounds/menu.mp3')
-        this.load.audio('a_no', 'assets/sounds/menu.mp3')
-        this.load.audio('a_win', 'assets/sounds/menu.mp3')
-        this.load.audio('a_lose', 'assets/sounds/menu.mp3')
+        this.load.audio('a_game', 'assets/sounds/game.mp3')
+        this.load.audio('a_yes', 'assets/sounds/yes.wav')
+        this.load.audio('a_no', 'assets/sounds/no.wav')
+        this.load.audio('a_win', 'assets/sounds/win.wav')
+        this.load.audio('a_lose', 'assets/sounds/lose.wav')
 
 
 
@@ -86,7 +89,7 @@ PizzaConnection.Preload = {
     update: function() {
       
         if (this.ready === true) {
-            this.state.start('Menu');
+            this.state.start('Game');
         }
     },
     onLoadComplete: function() {
