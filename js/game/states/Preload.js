@@ -59,6 +59,7 @@ PizzaConnection.Preload = {
         this.load.image('m_title', 'assets/images/buttons/title.png');
         this.load.image('m_pizzaBack', 'assets/images/buttons/pizzaBack.png');
 
+        this.load.image('scoreboard', 'assets/images/roundBoard.png');
 
         this.load.image('o_people', 'assets/images/opponent/o_people.png');
         this.load.image('o_table', 'assets/images/o_table.png');

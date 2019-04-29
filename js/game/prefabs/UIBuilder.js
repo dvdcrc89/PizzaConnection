@@ -65,9 +65,11 @@ UIBuilder = function(game) {
 
     }
     this.showRounds = function (){
-            this.yourScore =  game.add.sprite(30, 20, "p_"+(isP1? globalMatch.p1 : globalMatch.p2)+"r");
+            this.scoreboard = game.add.sprite(30, 20, "scoreboard");
+            this.scoreboard.scale.setTo(.7);
+            this.yourScore =  game.add.sprite(73, 35, "p_"+(isP1? globalMatch.p1 : globalMatch.p2)+"r");
             this.yourScore.scale.setTo(.1);
-            this.hisScore = game.add.sprite(220, 20, "o_"+(!isP1? globalMatch.p1 : globalMatch.p2)+"r");
+            this.hisScore = game.add.sprite(233, 35, "o_"+(!isP1? globalMatch.p1 : globalMatch.p2)+"r");
             this.hisScore.scale.setTo(.1);
         }
 
