@@ -15,8 +15,8 @@ PizzaConnection.Game.prototype = {
             this.uiBuilder.createStage();
             this.uiBuilder.setupOrderList();
             this.uiBuilder.createButtons();
-            backMusic = game.add.audio('a_game');
-            backMusic.play();
+            soundManager.stopAll();
+            soundManager.play(soundManager.get().GAME_SOUND);
             this.uiBuilder.createOrder();
             this.uiBuilder.showRounds();
         },3000)

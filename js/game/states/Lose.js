@@ -11,6 +11,8 @@ PizzaConnection.Lose.prototype = {
             Phaser.Keyboard.ENTER,
             this.menuAction.get().BACK_TO_MENU,
         )
+        soundManager.stopAll();
+        soundManager.play(soundManager.get().LOSE_SOUND);
         this.backmenu.createButton(50, 50,100,50, 'b_backmenu');
         this.youlose =  game.add.sprite( game.world.centerX -280, game.world.centerY -150, 'youlose');
         this.youlose.scale.setTo(0.6);        

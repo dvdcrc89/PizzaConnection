@@ -63,6 +63,7 @@ PlayerAction = function(game) {
                     new Pizza(game,dresserSelector.getPizza().x,dresserSelector.getPizza().y,0.6,key));
                 break;
             case actions.PIZZA_COMPLETE:
+                if(action.isMe) soundManager.play(soundManager.get().YES_SOUND);
                 let ds = this.dresserSelector(action.isMe);
                 let k = action.isMe ? 'pizza' : 'o_pizza';
                 ds.setPizza(
@@ -71,8 +72,9 @@ PlayerAction = function(game) {
             case action.GAME_OVER:
             game.state.start('Menu');
             break;    
-            case action.WRONG_PIZZA:
-                    console.log("WRONG PIZZA")
+            case actions.WRONG_PIZZA:
+            console.log("suca");
+                if(action.isMe) soundManager.play(soundManager.get().NO_SOUND);
                 break;
             
         }

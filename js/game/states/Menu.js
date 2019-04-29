@@ -1,8 +1,9 @@
 PizzaConnection.Menu = {
         preload: function() {
         this.menuAction = new MenuActions(game)
-        music = game.add.audio('a_menu');
-        music.play();
+        soundManager.stopAll();
+        ;
+        soundManager.play(soundManager.get().MENU_SOUND);
         this.background =  game.add.sprite( 0, 0 , 'm_background');
         this.background.scale.setTo(0.6);
         this.title = game.add.sprite(game.world.centerX,game.world.centerY - 100,'m_title')

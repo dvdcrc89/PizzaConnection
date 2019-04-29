@@ -100,6 +100,7 @@ PizzaConnection.Preload = {
     update: function() {
       
         if (this.ready === true) {
+            soundManager = new SoundManager(game);
             this.state.start('Menu');
         }
     },

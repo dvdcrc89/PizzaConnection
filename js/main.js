@@ -6,6 +6,7 @@ console.log(window.innerHeight);
 let game = new Phaser.Game(1150,653 , Phaser.AUTO, '');
 let globalMatch = {}
 let isP1;
+let soundManager;
 game.state.add('Boot', PizzaConnection.Boot);
 game.state.add('Menu', PizzaConnection.Menu);
 game.state.add('Preloader', PizzaConnection.Preload);
