@@ -15,6 +15,8 @@ MenuActions = function(game) {
         switch (action) {
             case actions.BACK_TO_MENU:
             console.log("Menu");
+            globalMatch = {};
+            isP1 = null;
             game.state.start('Menu');
                 break;
             case actions.START_GAME:
