@@ -52,13 +52,17 @@ UIBuilder = function(game) {
             let you ="";
             let him ="";
             console.log(isP1,globalMatch.pizza1,globalMatch.pizza2);
-            if((isP1 && globalMatch.pizza1 === index) || (!isP1 && globalMatch.pizza2 === index) ){
-                you = "Me";
+            if((isP1 && globalMatch.pizza1 > index) || (!isP1 && globalMatch.pizza2 > index) ){
+                if(you) you.kill();
+                you = game.add.sprite(830, y+(index*41)+3, "me");
+                you.scale.setTo(0.05);
             } 
-            if((!isP1 && globalMatch.pizza1 === index) || (isP1 && globalMatch.pizza2 === index) ){
-                him = "You"
+            if((!isP1 && globalMatch.pizza1 > index) || (isP1 && globalMatch.pizza2 > index) ){
+                if(him) him.kill();
+                him = game.add.sprite(1100, y+(index*41)+3, "him");
+                him.scale.setTo(0.05);
             }
-            this.orders.add(this.game.add.text(x,y+(index*41),you+"  "+order+"  "+him,{
+            this.orders.add(this.game.add.text(x,y+(index*41),order,{
                 font: "bold 18px Arial", fill: "#4d4d4d4", boundsAlignH: "center", boundsAlignV: "middle"
             }))
            });

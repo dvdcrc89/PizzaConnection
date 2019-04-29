@@ -214,6 +214,7 @@ function isRoundEnded(isP1, match, client) {
         if (match.p1 === 2) {
             client.emit('gameover', true);
             client.broadcast.to(match.roomId).emit('gameover', false);
+            removeGame(client);
             return true;
         } else {
             let updateMatch = newMatch(match, true)
@@ -226,6 +227,7 @@ function isRoundEnded(isP1, match, client) {
         if (match.p2 === 2) {
             client.emit('gameover', true);
             client.broadcast.to(match.roomId).emit('gameover', false);
+            removeGame(client);
             return true;
         } else {
             let updateMatch = newMatch(match, false)
