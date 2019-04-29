@@ -1,6 +1,6 @@
 var Client = {};
 // var playerAction = new PlayerAction(game)
-Client.socket = io('http://localhost:55000');
+Client.socket = io('http://192.168.0.20:55000');
 
 Client.sendAction = function(action,pizza){
     console.log("test sent");

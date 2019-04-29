@@ -2,15 +2,14 @@ PizzaConnection.Game = function(orders) {
 }
 PizzaConnection.Game.prototype = {
     create: function() { 
-        let background =  game.add.sprite( 0, 0 , 'm_background');
-        background.scale.setTo(0.6);
-        let rnd = game.add.text(game.world.centerX-300,game.world.centerY-200,"ROUND "+ globalMatch.round,{
+        let round =  game.add.sprite( 0, 5 , 'round');
+        let rnd = game.add.text(game.world.centerX-250,game.world.centerY + 200,"ROUND "+ globalMatch.round,{
             font: "bold 100px Sans", fill: "#000", boundsAlignH: "center", boundsAlignV: "middle"
         
         })
 
         setTimeout(()=>{
-            background.kill();
+            round.kill();
             rnd.kill();
             this.uiBuilder = new UIBuilder(game);
             this.uiBuilder.createStage();
