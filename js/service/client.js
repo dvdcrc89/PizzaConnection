@@ -8,7 +8,7 @@ Client.sendAction = function(action,pizza){
 };
 Client.socket.on("start",function(match){
     console.log(match)
-    golbalMatch = match.match;
+    globalMatch = match.match;
     isP1 = match.isP1;
     game.state.start('Game');
 })

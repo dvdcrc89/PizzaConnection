@@ -48,14 +48,14 @@ UIBuilder = function(game) {
         console.log("running");
         x = 860;
         y = 368;   
-        golbalMatch.orders.forEach((order,index)=>{
+        globalMatch.orders.forEach((order,index)=>{
             let you ="";
             let him ="";
-            console.log(isP1,golbalMatch.pizza1,golbalMatch.pizza2);
-            if((isP1 && golbalMatch.pizza1 === index) || (!isP1 && golbalMatch.pizza2 === index) ){
+            console.log(isP1,globalMatch.pizza1,globalMatch.pizza2);
+            if((isP1 && globalMatch.pizza1 === index) || (!isP1 && globalMatch.pizza2 === index) ){
                 you = "Me";
             } 
-            if((!isP1 && golbalMatch.pizza1 === index) || (isP1 && golbalMatch.pizza2 === index) ){
+            if((!isP1 && globalMatch.pizza1 === index) || (isP1 && globalMatch.pizza2 === index) ){
                 him = "You"
             }
             this.orders.add(this.game.add.text(x,y+(index*41),you+"  "+order+"  "+him,{
@@ -64,10 +64,16 @@ UIBuilder = function(game) {
            });
 
     }
+    this.showRounds = function (){
+            this.yourScore =  game.add.sprite(30, 20, "p_"+(isP1? globalMatch.p1 : globalMatch.p2)+"r");
+            this.yourScore.scale.setTo(.1);
+            this.hisScore = game.add.sprite(220, 20, "o_"+(!isP1? globalMatch.p1 : globalMatch.p2)+"r");
+            this.hisScore.scale.setTo(.1);
+        }
 
     Client.socket.on("orders",function(match){
         console.log("orders received");
-        golbalMatch = match;
+        globalMatch = match;
         setTimeout(()=>this.createOrder(),300);
     }.bind(this))
 }

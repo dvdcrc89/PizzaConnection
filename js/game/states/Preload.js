@@ -63,7 +63,13 @@ PizzaConnection.Preload = {
         this.load.image('o_people', 'assets/images/opponent/o_people.png');
         this.load.image('o_table', 'assets/images/o_table.png');
 
-
+        this.load.image('o_0r','assets/images/score/o_0x.png');
+        this.load.image('o_1r','assets/images/score/o_1x.png');
+        this.load.image('o_2r','assets/images/score/o_2x.png');
+        this.load.image('p_0r','assets/images/score/p_0x.png');
+        this.load.image('p_1r','assets/images/score/p_1x.png');
+        this.load.image('p_2r','assets/images/score/p_2x.png');
+        
         this.load.spritesheet('opponent', 'assets/images/opponent/opponent.png', 420, 399, 3);
 
         this.load.audio('a_menu', 'assets/sounds/menu.mp3')

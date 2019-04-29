@@ -3,6 +3,7 @@ MenuActions = function(game) {
 
     const actions = {
         START_GAME: "[MENU] START GAME",
+        BACK_TO_MENU: "[MENU] BACK TO MENU",
     }
 
 
@@ -12,13 +13,15 @@ MenuActions = function(game) {
 
     this.dispatch = function(action) {
         switch (action) {
+            case actions.BACK_TO_MENU:
+            console.log("Menu");
+            game.state.start('Menu');
+                break;
             case actions.START_GAME:
                 // game.scale.startFullScreen(false);
                 game.state.start('Loading');
                 Client.socket.emit("join");
-                music.stop();
                 break;
-
         }
     }
 
